@@ -1,0 +1,65 @@
+<html>
+<head>
+<title>Editar Horario</title>
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/estilo.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script type="text/javascript" >
+         function registro() {
+             alert();
+           var datosRegistro = '{"carrera":"' + document.getElementById("carrera").value +
+                            '","creditos_total":"'+ document.getElementById("creditos").value +
+                            '","fecha":"' +"0000-00-00 00:00:00" + 
+                            '","dia":"' + document.getElementById("dia").value +
+                            '","tipo_materia":"' + document.getElementById("tipo").value + 
+                            '","aula_materia":"' + document.getElementById("aula").value+ '"}';
+            $.ajax({
+                beforeSend: function (request) {
+                    request.setRequestHeader("Authorization", localStorage.getItem("claveApi"));
+                },
+                url: "http://localhost/restHorario/horarios/"+ document.getElementById("clave").value,
+                type: 'PUT',
+                dataType: 'json',
+                contentType: 'application/json',
+                processData: false,
+                data: datosRegistro,
+                success: function (data) {
+                    alert("Actualizacion Exitosa");
+                },
+                error: function (data) {
+                    alert("Error");
+                    console.log(data);
+                }
+            });
+        }
+       
+    </script>
+</head>
+<body>
+    <div class="container">
+        
+<form class="form-signin" id="form">
+    <h3 class="form-signin-heading" >Registro horario</h3>
+
+Clave:<br>
+      <input type = "text"  id="clave"/> <br/><br/>
+Carrera:<br>
+	  <input type = "text"  id="carrera"/> <br/><br/>
+Creditos totales:<br>	  
+	  <input type = "text"  id="creditos"/> <br/><br/>
+Dia:<br>	    
+		<input type="text" id="dia"/> <br/><br/>
+Tipo materia:<br>	   	
+		<input type="text" id="tipo"/> <br/><br/>
+Aula:<br>	    
+		<input type="text" id="aula"/> <br/><br/>
+         <br>
+		<input class="btn btn-lg btn-primary btn-block" type="button" value="Registrar" onclick="registro()"/>		 
+</form>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Materias</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script type="text/javascript">
+
+        window.onload = ini;
+
+        function ini() {
+            mostrarMaterias();
+        }
+
+        function mostrarMaterias() {
+            $.ajax({
+                beforeSend: function (request) {
+                    request.setRequestHeader("Authorization", localStorage.getItem("claveApi"));
+                },
+                url: "http://localhost/restHorario/materias/",
+                type: 'GET',
+                dataType: 'json',
+                contentType: 'application/json',
+                processData: false,
+                success: function (data) {
+                    console.log(data['mensaje']);
+
+                    var matrix = [];
+                    for (var i = 0; i <= data['mensaje'].length; i++){
+                        matrix[i]=new Array();
+                    }
+
+                    matrix[0][0] = "clave";
+                    matrix[0][1] = "nombre";
+                    matrix[0][2] = "aula";
+                    matrix[0][3] = "tipo";
+                    matrix[0][4] = "horario";
+                    matrix[0][5] = "creditos";
+                    matrix[0][6] = "ht";
+                    matrix[0][7] = "hp";
+                    
+
+                    for (var i = 1; i <= data['mensaje'].length; i++) {
+                        matrix[i][0] = data['mensaje'][i-1]['clave'];
+                        matrix[i][1] = data['mensaje'][i-1]['nombre'];
+                        matrix[i][2] = data['mensaje'][i-1]['aula'];
+                        matrix[i][3] = data['mensaje'][i-1]['tipo'];
+                        matrix[i][4] = data['mensaje'][i-1]['horario'];
+                        matrix[i][5] = data['mensaje'][i-1]['creditos'];
+                        matrix[i][6] = data['mensaje'][i-1]['ht'];
+                        matrix[i][7] = data['mensaje'][i-1]['hp'];
+                    }
+
+
+
+                    document.getElementById("tabla").innerHTML = makeTableHTML(matrix);
+
+                },
+                error: function (data) {
+                    alert("Error ssss");
+                    console.log(data);
+                }
+            });
+
+        }
+
+        function makeTableHTML(myArray) {
+            var result = "<table id ='tablaCali' border=1>";
+            for (var i = 0; i < myArray.length; i++) {
+                result += "<tr>";
+                for (var j = 0; j < myArray[i].length; j++) {
+                    if (j == 0) {
+                        result += "<th>" + myArray[i][j] + "</th>";
+                    } else {
+
+                        result += "<td>" + myArray[i][j] + "</td>";
+                    }
+                }
+                result += "</tr>";
+            }
+            result += "</table>";
+
+            return result;
+        }
+    </script>
+</head>
+<body>
+        <div id="tabla">
+
+            </div>
+        
+    </body>
+</html>

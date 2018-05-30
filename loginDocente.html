@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Docente</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/estilo.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script type="text/javascript" >
+
+
+
+        function login() {
+            var datosLogin = '{"correo":"'+document.getElementById("correo").value+'","password":"'+document.getElementById("contrasena").value+'"}';
+            $.ajax({
+                url: "http://localhost/restHorario/docentes/login",
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+                processData: false,
+                data: datosLogin,
+                success: function (data) {
+                    alert(data['docente']['nombre']+" "+data['docente']['claveApi']);
+                     localStorage.removeItem("claveApi");
+                    localStorage.setItem("claveApi",data['docente']['claveApi']);    
+                    location.href="menuDocente.html";
+                },
+                error: function(data){
+                    console.log(data);
+                }
+            });
+
+        }
+
+    </script>
+</head>
+<body>
+    
+<form class="form-signin">
+    <h3 class="form-signin-heading" >Sesión docente</h3><br/>
+    <span>Correo:</span><br/>
+    <input type="text" name="correo" id="correo" required>
+    <br> <span>Contrasena:</span><br/>
+    <input type="password" name="contrasena" id="contrasena" required>
+    <br><br/>
+    <input  class="btn btn-lg btn-primary btn-block" type=button value="Ingresar" class="btn btn-lg alert-primary" onclick="login()">
+    <br>
+
+</form>
+
+</body>
+</html>

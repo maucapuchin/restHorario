@@ -1,0 +1,70 @@
+<html>
+<head>
+<title>Registro Materia</title>
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/estilo.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script type="text/javascript" >
+        
+        function registro() {
+            var datosRegistro = '{"clave":"' + document.getElementById("clave").value + '", "nombre":"' + document.getElementById("nombre").value + '", "aula":"' + document.getElementById("aula").value + '","tipo":"' + document.getElementById("tipo").value + '","horario":"' + document.getElementById("horario").value + 
+                '","creditos":"' + document.getElementById("creditos").value + '","ht":"' + document.getElementById("ht").value + 
+                '","hp":"' + document.getElementById("hp").value+ '"}';
+            $.ajax({
+                beforeSend: function (request) {
+                    request.setRequestHeader("Authorization", localStorage.getItem("claveApi"));
+                },
+                url: "http://localhost/restHorario/materias/registro",
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+                processData: false,
+                data: datosRegistro,
+                success: function (data) {
+                    alert("Registro Exitoso");
+                },
+                error: function (data) {
+                    alert("Error");
+                    console.log(data);
+                }
+            });
+        }
+        
+    </script>
+</head>
+<body>
+    <div class="container">
+        
+<form  class="form-signin"   NAME="form">
+    <h3 class="form-signin-heading" >Registro materia</h3>
+  
+Clave:<br>
+      <input type = "text" id="clave"  name="clave"/> <br/><br/>
+nombre:<br>
+	  <input type = "text" id="nombre" name="nombre"/> <br/><br/>
+Aulas:<br>	  
+	  <input type = "text" id="aula" name="aula"/> <br/><br/>
+tipo:<br>	    
+		<input type="text" id="tipo" name="tipo"/> <br/><br/>
+horario:<br>	   	
+		<input type="text" id="horario" name="horario"/> <br/><br/>
+Creditos:<br>	    
+		<input type="text" id="creditos" name="creditos"/> <br/><br/>
+    ht:<br>	    
+		<input type="text" id="ht" name="creditos"/> <br/><br/>
+    hp:<br>	    
+		<input type="text" id="hp" name="creditos"/> <br/><br/>
+
+
+         <br>
+		<input  class="btn btn-lg btn-primary btn-block" type="button" value="Registrar" onclick="registro()"/>
+		
+		 
+</form>
+    </div>
+
+</body>
+</html>

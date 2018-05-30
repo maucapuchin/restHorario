@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Eliminar materia</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script type="text/javascript">
+
+        function eliminar() {
+            var datoEliminar = '{"idmateria":"' + document.getElementById("idmateria").value + '"}';
+            $.ajax({
+                beforeSend: function (request) {
+                    request.setRequestHeader("Authorization", localStorage.getItem("claveApi"));
+                },
+                url: "http://localhost/restHorario/materias/" + document.getElementById("idmateria").value,
+                type: 'Delete',
+                dataType: 'json',
+                contentType: 'application/json',
+                processData: false,
+                data: datoEliminar,
+                success: function (data) {
+                    alert("Materia eliminada correctamente");
+                },
+                error: function (data) {
+                    alert("Error");
+                    console.log(data);
+                }
+            });
+        }
+
+    </script>
+</head>
+<body>
+<h2>Eliminar Materia</h2>
+<div id="eliminar">
+    <br>
+    <span>ID Materia:</span>
+    <input type="text" name="idMateria" id="idmateria" required>
+    <br>
+    <input type="button" value="Eliminar" onclick="eliminar()">
+    <br><br>
+</div>
+</body>
+</html>

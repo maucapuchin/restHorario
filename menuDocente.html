@@ -1,0 +1,47 @@
+<html>
+<head>
+<title>Menú docente</title>
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/estilo.css">
+      <script type="text/javascript" >
+         function salir(){
+             window.location = "loginDocente.html";
+               localStorage.removeItem("claveApi");
+                                 
+         }
+          function agregar(){
+             window.location = "registroMateria.html";
+                                 
+         }
+         function ver(){
+             window.location = "vermateria.html";
+                                 
+         }
+         function editar(){
+             window.location = "editarMateria.html";
+                                 
+         }
+         function eliminar(){
+             window.location = "eliminarMateria.html";
+         }
+
+    </script>
+</head>
+<body>
+    <div class="container">
+        
+<form  class="form-signin"  NAME="form">
+    <h3 class="form-signin-heading" >Menú docente</h3>
+  
+		<input  class="btn btn-lg btn-primary btn-block" type="button" value="Ver materias" onclick="ver()"/>
+		<input  class="btn btn-lg btn-primary btn-block" type="button" value="Agregar materia"onclick="agregar()"/>
+		<input  class="btn btn-lg btn-primary btn-block" type="button" value="Editar registro"onclick="editar()"/>
+		<input  class="btn btn-lg btn-primary btn-block" type="button" value="Eliminar materia"onclick="eliminar()"/>
+		<input  class="btn btn-lg btn-primary btn-block" type="button" value="Salir" onclick="salir()"/>
+		 
+</form>
+    </div>
+
+</body>
+</html>
